@@ -1,0 +1,12 @@
+{
+   "name": "Dashless",
+   "version": "1.0.0",
+   "description": "Changes dashes in text channel names to spaces.",
+   "color": "#64D3FF",
+   "authors": [
+      {
+         "name": "ssense",
+         "id": "146080957965795328"
+      }
+   ]
+}
