@@ -1,0 +1,12 @@
+{
+   "name": "ShowAllActivities",
+   "version": "1.0.0",
+   "description": "See every status a user has enabled.",
+   "color": "#64D3FF",
+   "authors": [
+      {
+         "name": "ssense",
+         "id": "146080957965795328"
+      }
+   ]
+}
