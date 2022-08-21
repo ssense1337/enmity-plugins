@@ -1,9 +1,8 @@
 import { React, Navigation, NavigationNative, NavigationStack, StyleSheet, ColorMap } from 'enmity/metro/common';
 import { Button, FormInput, Image, TouchableOpacity, View } from 'enmity/components';
-import { getIDByName } from 'enmity/api/assets';
 import { connectComponent } from 'enmity/api/settings';
 
-import { fetchUser, DiscordButton } from '../utils';
+import { fetchUser, DiscordButton, Icons } from '../utils';
 
 import MainSettings from './MainSettings';
 
@@ -33,7 +32,7 @@ export function HeaderRight({ navigation, isFromUserSettings }) {
     }}>
       <Image
         style={styles.header}
-        source={getIDByName('add_white')}
+        source={Icons.AddWhite}
       />
     </TouchableOpacity>
   );

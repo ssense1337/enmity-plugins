@@ -1,6 +1,7 @@
 import { getByProps, getModule } from 'enmity/metro';
 import { Dialog, Locale, Token } from 'enmity/metro/common';
 import { Alert } from 'enmity/components';
+import { getIDByName } from 'enmity/api/assets';
 
 export const AccountUtils = getByProps('loginToken');
 
@@ -65,4 +66,14 @@ export const showConfirmDialog = ({ title = 'Are you sure?', body, confirmColor,
     onConfirm,
     onCancel
   });
+};
+
+export const Icons = {
+  AddWhite: getIDByName('add_white'),
+  Checkmark: getIDByName('Check'),
+  Key: getIDByName('ic_authed_apps_24px'),
+  MyAccount: getIDByName('ic_my_account_24px'),
+  Passport: getIDByName('ic_passport_24px'),
+  Settings: getIDByName('settings'),
+  TrashFilled: getIDByName('ic_trash_filled_16px')
 };

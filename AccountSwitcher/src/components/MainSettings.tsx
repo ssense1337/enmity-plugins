@@ -4,7 +4,7 @@ import { SettingsStore } from 'enmity/api/settings';
 const { createThemedStyleSheet } = StyleSheet;
 import AccountCard from './AccountCard';
 
-import { AccountUtils, showConfirmLogout } from '../utils';
+import { AccountUtils, Icons, showConfirmLogout } from '../utils';
 
 interface SettingsProps {
    settings: SettingsStore;
@@ -49,14 +49,14 @@ export default ({ settings, navigation, isFromUserSettings }: SettingsProps) => 
                ))}
                <FormRow
                   label='Add Account (Token)'
-                  leading={<FormRow.Icon source={{ uri: 'https://files.enmity.app/icon-64.png' }} />}
+                  leading={<FormRow.Icon source={Icons.Key} />}
                   onPress={() => {
                      navigation.navigate('AccountSwitcherAddAccount', isFromUserSettings && { navigation, isFromUserSettings });
                   }}
                />
                {Boolean(Token.getToken()) && <FormRow
                   label='Add Current Account'
-                  leading={<FormRow.Icon source={{ uri: 'https://files.enmity.app/icon-64.png' }} />}
+                  leading={<FormRow.Icon source={Icons.MyAccount} />}
                   onPress={() => {
                      navigation.navigate('AccountSwitcherAddAccount', !isFromUserSettings ? {
                         token: Token.getToken(),
@@ -75,7 +75,7 @@ export default ({ settings, navigation, isFromUserSettings }: SettingsProps) => 
                />}
                <FormRow
                   label='Add Account (User/Pass)'
-                  leading={<FormRow.Icon source={{ uri: 'https://files.enmity.app/icon-64.png' }} />}
+                  leading={<FormRow.Icon source={Icons.Passport} />}
                   onPress={() => {
                      if (Boolean(Token.getToken())) AccountUtils.loginToken('');
                      Navigation.popAll();

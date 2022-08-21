@@ -1,14 +1,9 @@
 import { React, Navigation, StyleSheet, ColorMap, Constants, Toasts } from 'enmity/metro/common';
 import { Text, Image, TouchableOpacity, View, FormRow } from 'enmity/components';
-import { getIDByName } from 'enmity/api/assets';
 import TouchableAccount from './TouchableAccount';
 import { SettingsStore } from 'enmity/api/settings';
 
-import { AccountUtils, showConfirmDialog } from '../utils';
-
-const Icons = {
-  Checkmark: getIDByName('Check')
-};
+import { AccountUtils, Icons, showConfirmDialog } from '../utils';
 
 const { ThemeColorMap } = ColorMap;
 
@@ -125,7 +120,7 @@ export default function AccountCard({ account, position, settings, navigation, i
                 navigation.navigate('AccountSwitcherEditAccount', !isFromUserSettings ? { account, position } : { navigation, route: { params: { account, position } }, isFromUserSettings });
               }}
             >
-              <Image style={styles.settingsIcon} source={getIDByName('settings')} />
+              <Image style={styles.settingsIcon} source={Icons.Settings} />
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.delete}
@@ -144,7 +139,7 @@ export default function AccountCard({ account, position, settings, navigation, i
                 });
               }}
             >
-              <Image style={styles.trashIcon} source={getIDByName('ic_trash_filled_16px')} />
+              <Image style={styles.trashIcon} source={Icons.TrashFilled} />
             </TouchableOpacity>
           </View>}
         />
