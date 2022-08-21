@@ -127,6 +127,7 @@ export function AddAccount({ settings, navigation, route }) {
       style={styles.container}
     >
       <FormInput
+        disabled={Boolean(pToken)}
         value={pToken || ''}
         onChange={v => setTokenVal(v)}
         title='Account Token'

@@ -4,7 +4,7 @@ import { SettingsStore } from 'enmity/api/settings';
 const { createThemedStyleSheet } = StyleSheet;
 import AccountCard from './AccountCard';
 
-import { AccountUtils, Icons, showConfirmLogout } from '../utils';
+import { AccountUtils, Icons, formatUser, showConfirmLogout } from '../utils';
 
 interface SettingsProps {
    settings: SettingsStore;
@@ -17,7 +17,7 @@ export default ({ settings, navigation, isFromUserSettings }: SettingsProps) => 
 
    const getSortedAccounts = () => {
       const accounts: any = settings.get('accounts', []);
-      return Array.isArray(accounts) && accounts.sort((a, b) => (a.label && b.label) ? a.label.localeCompare(b.label) : (a.username?.localeCompare(b.username) ?? 1));
+      return Array.isArray(accounts) && accounts.sort((a, b) => a.label?.localeCompare(b.label) || a.username?.localeCompare(b.username));
    };
    const [accounts, setAccounts] = React.useState(getSortedAccounts());
 
@@ -60,13 +60,13 @@ export default ({ settings, navigation, isFromUserSettings }: SettingsProps) => 
                   onPress={() => {
                      navigation.navigate('AccountSwitcherAddAccount', !isFromUserSettings ? {
                         token: Token.getToken(),
-                        user: Users.getCurrentUser()
+                        user: formatUser(Users.getCurrentUser())
                      } : {
                         navigation,
                         route: {
                            params: {
                               token: Token.getToken(),
-                              user: Users.getCurrentUser(),
+                              user: formatUser(Users.getCurrentUser())
                            }
                         },
                         isFromUserSettings

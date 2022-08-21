@@ -7,6 +7,10 @@ export const AccountUtils = getByProps('loginToken');
 
 export const { default: DiscordButton } = getModule(m => m?.ButtonColors);
 
+export const formatUser = (user: any) => (
+  !user.id ? {} : { id: user.id, username: user.username, discriminator: user.discriminator, avatar: user.avatar, ...user.email && { email: user.email }, ...user.phone && { phone: user.phone } }
+);
+
 export async function fetchUser(token: string) {
   const res = await fetch('https://discord.com/api/v9/users/@me', {
     headers: {
@@ -14,7 +18,7 @@ export async function fetchUser(token: string) {
     },
   });
   const user = await res.json();
-  return !user.id ? {} : { id: user.id, username: user.username, discriminator: user.discriminator, avatar: user.avatar, ...user.email && { email: user.email }, ...user.phone && { phone: user.phone } };
+  return formatUser(user);
 };
 
 export const showConfirmLogout = () => {
