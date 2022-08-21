@@ -9,3 +9,8 @@ Changes dashes in text channel names to spaces.
 See every status a user has enabled.
 
 [Download](https://github.com/ssense1337/enmity-plugins/raw/main/ShowAllActivities/dist/ShowAllActivities.js)
+
+## [AccountSwitcher](https://github.com/ssense1337/enmity-plugins/tree/main/AccountSwitcher)
+Switch between multiple accounts.
+
+[Download](https://github.com/ssense1337/enmity-plugins/raw/main/AccountSwitcher/dist/AccountSwitcher.js)

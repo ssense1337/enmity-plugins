@@ -1,0 +1,12 @@
+{
+   "name": "AccountSwitcher",
+   "version": "1.0.0",
+   "description": "Switch between multiple accounts.",
+   "color": "#64D3FF",
+   "authors": [
+      {
+         "name": "ssense",
+         "id": "146080957965795328"
+      }
+   ]
+}
