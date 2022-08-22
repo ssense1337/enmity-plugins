@@ -28,11 +28,10 @@ interface AccountCardProps {
   account: AccountInfo;
   settings: SettingsStore;
   position: number;
-  navigation?: any;
-  isFromUserSettings: boolean;
+  navigation: any;
 }
 
-export default function AccountCard({ account, position, settings, navigation, isFromUserSettings }: AccountCardProps) {
+export default function AccountCard({ account, position, settings, navigation }: AccountCardProps) {
   const styles = StyleSheet.createThemedStyleSheet({
     container: {
       backgroundColor: ThemeColorMap.BACKGROUND_SECONDARY,
@@ -117,7 +116,7 @@ export default function AccountCard({ account, position, settings, navigation, i
             <TouchableOpacity
               style={styles.delete}
               onPress={(): void => {
-                navigation.navigate('AccountSwitcherEditAccount', !isFromUserSettings ? { account, position } : { navigation, route: { params: { account, position } }, isFromUserSettings });
+                navigation.navigate('AccountSwitcherEditAccount', { account, position });
               }}
             >
               <Image style={styles.settingsIcon} source={Icons.Settings} />

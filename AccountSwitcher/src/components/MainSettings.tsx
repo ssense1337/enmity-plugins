@@ -8,11 +8,10 @@ import { AccountUtils, Icons, formatUser, showConfirmLogout } from '../utils';
 
 interface SettingsProps {
    settings: SettingsStore;
-   navigation?: any;
-   isFromUserSettings: boolean;
+   navigation: any;
 }
 
-export default ({ settings, navigation, isFromUserSettings }: SettingsProps) => {
+export default ({ settings, navigation }: SettingsProps) => {
    const [refreshing, setRefreshing] = React.useState(false);
 
    const getSortedAccounts = () => {
@@ -45,31 +44,22 @@ export default ({ settings, navigation, isFromUserSettings }: SettingsProps) => 
                }
             >
                {Array.isArray(accounts) && accounts.map((account, idx) => (
-                  <AccountCard account={account} position={idx} settings={settings} navigation={navigation} isFromUserSettings={isFromUserSettings ?? undefined} />
+                  <AccountCard account={account} position={idx} settings={settings} navigation={navigation} />
                ))}
                <FormRow
                   label='Add Account (Token)'
                   leading={<FormRow.Icon source={Icons.Key} />}
                   onPress={() => {
-                     navigation.navigate('AccountSwitcherAddAccount', isFromUserSettings && { navigation, isFromUserSettings });
+                     navigation.navigate('AccountSwitcherAddAccount');
                   }}
                />
                {Boolean(Token.getToken()) && <FormRow
                   label='Add Current Account'
                   leading={<FormRow.Icon source={Icons.MyAccount} />}
                   onPress={() => {
-                     navigation.navigate('AccountSwitcherAddAccount', !isFromUserSettings ? {
+                     navigation.navigate('AccountSwitcherAddAccount', {
                         token: Token.getToken(),
                         user: formatUser(Users.getCurrentUser())
-                     } : {
-                        navigation,
-                        route: {
-                           params: {
-                              token: Token.getToken(),
-                              user: formatUser(Users.getCurrentUser())
-                           }
-                        },
-                        isFromUserSettings
                      });
                   }}
                />}

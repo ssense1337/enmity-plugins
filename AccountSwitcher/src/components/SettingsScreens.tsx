@@ -11,7 +11,7 @@ export const Settings = NavigationStack.createStackNavigator();
 const { createThemedStyleSheet } = StyleSheet;
 const { ThemeColorMap } = ColorMap;
 
-export function HeaderRight({ navigation, isFromUserSettings }) {
+export function HeaderRight({ navigation = NavigationNative.useNavigation() }) {
   const styles = createThemedStyleSheet({
     header: {
       tintColor: ThemeColorMap.HEADER_PRIMARY,
@@ -28,7 +28,7 @@ export function HeaderRight({ navigation, isFromUserSettings }) {
 
   return (
     <TouchableOpacity styles={styles.wrapper} onPress={(): void => {
-      navigation.navigate('AccountSwitcherAddAccount', isFromUserSettings && { navigation, isFromUserSettings });
+      navigation.navigate('AccountSwitcherAddAccount');
     }}>
       <Image
         style={styles.header}
@@ -38,7 +38,7 @@ export function HeaderRight({ navigation, isFromUserSettings }) {
   );
 }
 
-export function EditAccount({ settings, navigation, route }) {
+export function EditAccount({ settings, navigation = NavigationNative.useNavigation(), route = NavigationNative.useRoute() }) {
   const { account, position } = route.params;
 
   const [tokenVal, setTokenVal] = React.useState(account.token);
@@ -106,7 +106,7 @@ export function EditAccount({ settings, navigation, route }) {
     </View>);
 }
 
-export function AddAccount({ settings, navigation, route }) {
+export function AddAccount({ settings, navigation = NavigationNative.useNavigation(), route = NavigationNative.useRoute() }) {
   const { token: pToken, user: pUser } = route?.params || {};
   const [tokenVal, setTokenVal] = React.useState(pToken || '');
   const [labelVal, setLabelVal] = React.useState('');
@@ -172,8 +172,8 @@ export function AddAccount({ settings, navigation, route }) {
   );
 }
 
-export function MainScreen({ settings, navigation, isFromUserSettings }) {
-  return <MainSettings settings={settings} navigation={navigation} isFromUserSettings={isFromUserSettings ?? undefined}></MainSettings>;
+export function MainScreen({ settings, navigation = NavigationNative.useNavigation() }) {
+  return <MainSettings settings={settings} navigation={navigation} />;
 }
 
 export default function ({ name = 'pluginName', mainScreen = MainScreen, addAccount = AddAccount } = {}) {
@@ -230,7 +230,6 @@ export default function ({ name = 'pluginName', mainScreen = MainScreen, addAcco
           />),
           headerRight: () => (<HeaderRight
             navigation={navigation}
-            isFromUserSettings={undefined}
           />),
           ...NavigationStack.TransitionPresets.ModalSlideFromBottomIOS
         })}

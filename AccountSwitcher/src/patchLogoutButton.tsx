@@ -1,5 +1,5 @@
 import { getByTypeName } from 'enmity/metro';
-import { Locale, React, Scenes } from 'enmity/metro/common';
+import { Locale, Scenes } from 'enmity/metro/common';
 import { connectComponent } from 'enmity/api/settings';
 import * as SettingsScreens from './components/SettingsScreens';
 import { Patcher } from 'enmity/patcher';
@@ -11,8 +11,6 @@ export default function (Patcher: Patcher): void {
   patchSettings(Patcher);
 }
 
-const navForHeader = { navigation: {} };
-
 function patchScreens(Patcher: Patcher) {
   Patcher.after(Scenes, 'default', (_, _args, res) => {
     return {
@@ -21,10 +19,7 @@ function patchScreens(Patcher: Patcher) {
         key: 'AccountSwitcherMain',
         title: 'Account Switcher',
         render: connectComponent(SettingsScreens.MainScreen, manifest.name),
-        headerRight: () => (<SettingsScreens.HeaderRight
-          navigation={navForHeader.navigation}
-          isFromUserSettings={true}
-        />)
+        headerRight: SettingsScreens.HeaderRight
       },
       AccountSwitcherAddAccount: {
         key: 'AccountSwitcherAddAccount',
@@ -50,9 +45,8 @@ function patchSettings(Patcher: Patcher) {
       const index = children.findIndex(x => Locale.Messages['LOGOUT'] === x.props.label);
       children[index].props.label = 'Account Switcher';
       children[index].props.onPress = () => {
-        navigation.navigate('AccountSwitcherMain', { navigation, isFromUserSettings: true });
+        navigation.navigate('AccountSwitcherMain');
       };
-      navForHeader.navigation = navigation;
     });
 
     unpatch();
