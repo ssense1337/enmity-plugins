@@ -12,6 +12,7 @@ import { DiscordButton } from './utils';
 import SettingsScreens from './components/SettingsScreens';
 
 import patchLogout from './patchLogoutButton';
+import patchStatusPickerActionSheet from './patchStatusPickerActionSheet';
 
 const Patcher = create('account-switcher');
 
@@ -20,6 +21,7 @@ const AccountSwitcher: Plugin = {
 
    onStart() {
       patchLogout(Patcher);
+      patchStatusPickerActionSheet(Patcher);
 
       const accSwBtn = <DiscordButton
          onPress={() => Navigation.push(SettingsScreens, {

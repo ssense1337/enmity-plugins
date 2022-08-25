@@ -1,4 +1,4 @@
-import { getByProps, getModule } from 'enmity/metro';
+import { getByName, getByProps, getModule } from 'enmity/metro';
 import { Dialog, Locale, Token } from 'enmity/metro/common';
 import { Alert } from 'enmity/components';
 import { getIDByName } from 'enmity/api/assets';
@@ -79,5 +79,27 @@ export const Icons = {
   MyAccount: getIDByName('ic_my_account_24px'),
   Passport: getIDByName('ic_passport_24px'),
   Settings: getIDByName('settings'),
-  TrashFilled: getIDByName('ic_trash_filled_16px')
+  TrashFilled: getIDByName('ic_trash_filled_16px'),
+  Sort: getIDByName('ic_sort')
+};
+
+export const LazyActionSheet = getByProps('openLazy', 'hideActionSheet');
+
+export const ColorUtils = getByProps('hex2int');
+
+interface colorPickerArgs {
+  onSelect: Function;
+  defaultColor?: string;
+  resetText?: string;
+};
+const CustomColorPickerActionSheet = getByName('CustomColorPickerActionSheet');
+export const openColorPicker = ({onSelect, defaultColor='#000000', resetText=Locale.Messages['RESET']}: colorPickerArgs) => {
+  const color = ColorUtils.hex2int(defaultColor);
+  LazyActionSheet.openLazy(
+    () => new Promise(r => r(CustomColorPickerActionSheet)),
+    'CustomColorPicker',
+    {
+      color, onSelect, resetText, resetColor: color
+    }
+  );
 };

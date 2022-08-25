@@ -1,15 +1,15 @@
-import { React, Navigation, NavigationNative, NavigationStack, StyleSheet, ColorMap } from 'enmity/metro/common';
-import { Button, FormInput, Image, TouchableOpacity, View } from 'enmity/components';
+import { React, Navigation, NavigationNative, NavigationStack, StyleSheet, ColorMap, Constants } from 'enmity/metro/common';
+import { Button, FormArrow, FormInput, FormRow, Image, Text, TouchableOpacity, View } from 'enmity/components';
 import { connectComponent } from 'enmity/api/settings';
 
-import { fetchUser, DiscordButton, Icons } from '../utils';
+import { fetchUser, DiscordButton, Icons, openColorPicker, ColorUtils } from '../utils';
 
 import MainSettings from './MainSettings';
 
 export const Settings = NavigationStack.createStackNavigator();
 
 const { createThemedStyleSheet } = StyleSheet;
-const { ThemeColorMap } = ColorMap;
+const { ThemeColorMap, Colors } = ColorMap;
 
 export function HeaderRight({ navigation = NavigationNative.useNavigation() }) {
   const styles = createThemedStyleSheet({
@@ -44,15 +44,31 @@ export function EditAccount({ settings, navigation = NavigationNative.useNavigat
   const [tokenVal, setTokenVal] = React.useState(account.token);
   const [labelVal, setLabelVal] = React.useState(account.label || '');
   const [descVal, setDescVal] = React.useState(account.description || '');
-  const [colorVal, setColorVal] = React.useState(account.color || '');
+  const [colorVal, setColorVal] = React.useState(account.color || '#524FBF');
 
   const styles = createThemedStyleSheet({
     container: {
       // backgroundColor: '#1f2026',
       flex: 1,
       padding: 16,
-      paddingTop: 36,
-      paddingBottom: 36,
+    },
+    colorBlock: {
+      minWidth: 24,
+      height: 24,
+      borderRadius: 3,
+      marginHorizontal: 0,
+      marginVertical: 0,
+      marginRight: 8,
+      justifyContent: "center",
+      alignItems: "center"
+    },
+    colorText: {
+      fontFamily: Constants.Fonts.PRIMARY_SEMIBOLD,
+      color: Colors.PRIMARY_DARK_400
+    },
+    row: {
+      flexDirection: "row",
+      alignItems: "center"
     }
   });
 
@@ -75,12 +91,28 @@ export function EditAccount({ settings, navigation = NavigationNative.useNavigat
         onChange={v => setDescVal(v)}
         title='Description'
       />
-      <FormInput
-        value={colorVal}
-        onChange={v => setColorVal(v)}
-        title='Color'
+      <FormRow
+        label={() => <Text
+          adjustsFontSizeToFit
+          style={styles.colorText}
+        >
+          Color
+        </Text>}
+        trailing={() => <View style={styles.row}>
+          <View style={[
+            styles.colorBlock,
+            {
+              backgroundColor: colorVal
+            }
+          ]} />
+          <Text style={styles.colorText}>
+            {colorVal}
+          </Text>
+          <FormArrow />
+        </View>}
+        onPress={() => openColorPicker({ onSelect: v => setColorVal(ColorUtils.int2hex(v)), defaultColor: colorVal })}
       />
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+      <View style={styles.row}>
         <DiscordButton
           onPress={async function () {
             const user = await fetchUser(tokenVal);
@@ -99,7 +131,6 @@ export function EditAccount({ settings, navigation = NavigationNative.useNavigat
             settings.set('accounts', accs);
             navigation.goBack();
           }}
-          style={{ backgroundColor: '#64d3ff' }}
           text='Save account'
         />
       </View>
@@ -111,14 +142,30 @@ export function AddAccount({ settings, navigation = NavigationNative.useNavigati
   const [tokenVal, setTokenVal] = React.useState(pToken || '');
   const [labelVal, setLabelVal] = React.useState('');
   const [descVal, setDescVal] = React.useState('');
-  const [colorVal, setColorVal] = React.useState('');
+  const [colorVal, setColorVal] = React.useState('#524FBF');
 
   const styles = createThemedStyleSheet({
     container: {
       flex: 1,
       padding: 16,
-      paddingTop: 36,
-      paddingBottom: 36,
+    },
+    colorBlock: {
+      minWidth: 24,
+      height: 24,
+      borderRadius: 3,
+      marginHorizontal: 0,
+      marginVertical: 0,
+      marginRight: 8,
+      justifyContent: "center",
+      alignItems: "center"
+    },
+    colorText: {
+      fontFamily: Constants.Fonts.PRIMARY_SEMIBOLD,
+      color: Colors.PRIMARY_DARK_400
+    },
+    row: {
+      flexDirection: "row",
+      alignItems: "center"
     }
   });
 
@@ -140,12 +187,28 @@ export function AddAccount({ settings, navigation = NavigationNative.useNavigati
         onChange={v => setDescVal(v)}
         title='Description'
       />
-      <FormInput
-        value={colorVal}
-        onChange={v => setColorVal(v)}
-        title='Color'
+      <FormRow
+        label={() => <Text
+          adjustsFontSizeToFit
+          style={styles.colorText}
+        >
+          Color
+        </Text>}
+        trailing={() => <View style={styles.row}>
+          <View style={[
+            styles.colorBlock,
+            {
+              backgroundColor: colorVal
+            }
+          ]} />
+          <Text style={styles.colorText}>
+            {colorVal}
+          </Text>
+          <FormArrow />
+        </View>}
+        onPress={() => openColorPicker({ onSelect: v => setColorVal(ColorUtils.int2hex(v)), defaultColor: colorVal })}
       />
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+      <View style={styles.row}>
         <DiscordButton
           onPress={async function () {
             const user = pUser || await fetchUser(tokenVal);
@@ -164,7 +227,6 @@ export function AddAccount({ settings, navigation = NavigationNative.useNavigati
             settings.set('accounts', accs);
             navigation.goBack();
           }}
-          style={{ backgroundColor: '#64d3ff' }}
           text='Add account'
         />
       </View>

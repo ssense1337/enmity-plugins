@@ -1,4 +1,4 @@
-import { React, Navigation, StyleSheet, ColorMap, Constants, Toasts } from 'enmity/metro/common';
+import { React, Navigation, StyleSheet, ColorMap, Constants, Toasts, Native } from 'enmity/metro/common';
 import { Text, Image, TouchableOpacity, View, FormRow } from 'enmity/components';
 import TouchableAccount from './TouchableAccount';
 import { SettingsStore } from 'enmity/api/settings';
@@ -6,6 +6,8 @@ import { SettingsStore } from 'enmity/api/settings';
 import { AccountUtils, Icons, showConfirmDialog } from '../utils';
 
 const { ThemeColorMap } = ColorMap;
+
+const { RNCPushNotificationIOS } = Native;
 
 export interface User {
   id: string;
@@ -86,8 +88,9 @@ export default function AccountCard({ account, position, settings, navigation }:
     <TouchableOpacity style={styles.container} onPress={() => {
       const onConfirm = () => {
         Navigation.popAll();
+        RNCPushNotificationIOS.abandonPermissions();
         AccountUtils.loginToken(account.token);
-        Toasts.open({ content: 'Account Switched', source: Icons.Checkmark })
+        Toasts.open({ content: `Switched to ${account.user.username}`, source: Icons.Checkmark })
       };
       // if (!Token.getToken()) Navigation.pop();
       showConfirmDialog({
