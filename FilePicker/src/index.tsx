@@ -43,7 +43,7 @@ const FilePicker: Plugin = {
             const file = {
                id: fileId,
                uri: dataUrl,
-               mimeType,
+               mimeType: mimeType === 'application/json' ? undefined : mimeType,
                width: undefined,
                height: undefined,
                filename,
