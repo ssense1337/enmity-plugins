@@ -34,8 +34,9 @@ const FilePicker: Plugin = {
          style: { backgroundColor: 'transparent' },
          onLoad: _e => isInModal && ref.postMessage('loaded'),
          onMessage: e => {
-            if (isInModal && e.nativeEvent.data === 'close') return Navigation.pop();
-            const data = JSON.parse(e.nativeEvent.data);
+            const message = e.nativeEvent.data;
+            if (message === 'close') return isInModal ? Navigation.pop() : null;
+            const data = JSON.parse(message);
             const [filename, fileSize, mimeType, dataUrl] = data;
 
             const fileId = uuidv4();
