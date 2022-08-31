@@ -1,0 +1,12 @@
+{
+   "name": "FilePicker",
+   "version": "1.0.0",
+   "description": "Wow File Picker on Discord iOS.",
+   "color": "#64D3FF",
+   "authors": [
+      {
+         "name": "ssense",
+         "id": "146080957965795328"
+      }
+   ]
+}

@@ -14,3 +14,8 @@ See every status a user has enabled.
 Switch between multiple accounts.
 
 [Download](https://github.com/ssense1337/enmity-plugins/raw/main/AccountSwitcher/dist/AccountSwitcher.js)
+
+## [FilePicker](https://github.com/ssense1337/enmity-plugins/tree/main/FilePicker)
+Wow File Picker on Discord iOS.
+
+[Download](https://github.com/ssense1337/enmity-plugins/raw/main/FilePicker/dist/FilePicker.js)
