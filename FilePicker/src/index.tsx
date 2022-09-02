@@ -20,6 +20,7 @@ const FilePicker: Plugin = {
    ...manifest,
 
    onStart() {
+      const badMimeTypes = ['application/json', 'video/webm'];
       let channelId = '';
       let ref: { postMessage: (message: string) => void };
       function uuidv4() {
@@ -43,7 +44,7 @@ const FilePicker: Plugin = {
             const file = {
                id: fileId,
                uri: dataUrl,
-               mimeType: mimeType === 'application/json' ? undefined : mimeType,
+               mimeType: badMimeTypes.includes(mimeType) ? undefined : mimeType,
                width: undefined,
                height: undefined,
                filename,
