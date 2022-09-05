@@ -44,7 +44,7 @@ const FilePicker: Plugin = {
             const file = {
                id: fileId,
                uri: dataUrl,
-               mimeType: badMimeTypes.includes(mimeType) ? undefined : mimeType,
+               mimeType: mimeType.startsWith('video/') || badMimeTypes.includes(mimeType) ? undefined : mimeType,
                width: undefined,
                height: undefined,
                filename,
