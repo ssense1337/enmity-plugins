@@ -1,4 +1,4 @@
-import { getByTypeName } from 'enmity/metro';
+import { getByName } from 'enmity/metro';
 import { Locale, Scenes } from 'enmity/metro/common';
 import { connectComponent } from 'enmity/api/settings';
 import * as SettingsScreens from './components/SettingsScreens';
@@ -36,7 +36,7 @@ function patchScreens(Patcher: Patcher) {
 }
 
 function patchSettings(Patcher: Patcher) {
-  const Settings = getByTypeName('UserSettingsOverviewWrapper', { default: false });
+  const Settings = getByName('UserSettingsOverviewWrapper', { default: false });
 
   const unpatch = Patcher.after(Settings, 'default', (_, __, ret) => {
     Patcher.after(ret.type.prototype, 'render', ({ props: { navigation } }, __, res) => {

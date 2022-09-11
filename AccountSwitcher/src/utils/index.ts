@@ -96,7 +96,7 @@ const CustomColorPickerActionSheet = getByName('CustomColorPickerActionSheet');
 export const openColorPicker = ({onSelect, defaultColor='#000000', resetText=Locale.Messages['RESET']}: colorPickerArgs) => {
   const color = ColorUtils.hex2int(defaultColor);
   LazyActionSheet.openLazy(
-    () => new Promise(r => r(CustomColorPickerActionSheet)),
+    () => Promise.resolve(CustomColorPickerActionSheet),
     'CustomColorPicker',
     {
       color, onSelect, resetText, resetColor: color
