@@ -1,5 +1,6 @@
 import { getByName } from 'enmity/metro';
 import { Locale, Scenes } from 'enmity/metro/common';
+import { findInReactTree } from 'enmity/utilities';
 import { connectComponent } from 'enmity/api/settings';
 import * as SettingsScreens from './components/SettingsScreens';
 import { Patcher } from 'enmity/patcher';
@@ -39,7 +40,9 @@ function patchSettings(Patcher: Patcher) {
   const Settings = getByName('UserSettingsOverviewWrapper', { default: false });
 
   const unpatch = Patcher.after(Settings, 'default', (_, __, ret) => {
-    Patcher.after(ret.type.prototype, 'render', ({ props: { navigation } }, __, res) => {
+    const Overview = findInReactTree(ret, m => m.type?.name === 'UserSettingsOverview');
+
+    Patcher.after(Overview.type.prototype, 'render', ({ props: { navigation } }, __, res) => {
       const { children } = res.props;
 
       const index = children.findIndex(x => Locale.Messages['LOGOUT'] === x.props.label);
