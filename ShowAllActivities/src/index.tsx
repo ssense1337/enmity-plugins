@@ -3,7 +3,7 @@ import { create } from 'enmity/patcher';
 import manifest from '../manifest.json';
 
 import { getByName, getByProps } from 'enmity/metro';
-const UserActivity = getByName('ue', { default: false });
+const UserActivity = getByName('ne', { default: false });
 const UserStatusStore = getByProps('getStatus', 'getState');
 
 const Patcher = create('show-all-activities');

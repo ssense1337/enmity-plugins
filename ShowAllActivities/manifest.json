@@ -1,6 +1,6 @@
 {
    "name": "ShowAllActivities",
-   "version": "1.0.0",
+   "version": "1.0.1",
    "description": "See every status a user has enabled.",
    "color": "#64D3FF",
    "authors": [
