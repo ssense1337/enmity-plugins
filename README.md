@@ -19,3 +19,8 @@ Switch between multiple accounts.
 Wow File Picker on Discord iOS.
 
 [Download](https://github.com/ssense1337/enmity-plugins/raw/main/FilePicker/dist/FilePicker.js)
+
+## [HideGiftButton](https://github.com/ssense1337/enmity-plugins/tree/main/HideGiftButton)
+Hide the gift button in Chat Input.
+
+[Download](https://github.com/ssense1337/enmity-plugins/raw/main/HideGiftButton/dist/HideGiftButton.js)

@@ -1,0 +1,12 @@
+{
+   "name": "HideGiftButton",
+   "version": "1.0.0",
+   "description": "Hide the gift button in Chat Input.",
+   "color": "#64D3FF",
+   "authors": [
+      {
+         "name": "ssense",
+         "id": "146080957965795328"
+      }
+   ]
+}
