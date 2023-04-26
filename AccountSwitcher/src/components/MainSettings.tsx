@@ -1,4 +1,4 @@
-import { React, Navigation, Token, StyleSheet, Users, Locale } from 'enmity/metro/common';
+import { React, Navigation, Token, StyleSheet, Users, Locale, Toasts } from 'enmity/metro/common';
 import { FormCTAButton, FormRow, RefreshControl, ScrollView, View } from 'enmity/components';
 import { SettingsStore } from 'enmity/api/settings';
 const { createThemedStyleSheet } = StyleSheet;
@@ -69,6 +69,10 @@ export default ({ settings, navigation }: SettingsProps) => {
                   onPress={() => {
                      if (Boolean(Token.getToken())) AccountUtils.loginToken('');
                      Navigation.popAll();
+                     Toasts.open({
+                        content: 'After logging in, use "Add Current Account" to add your account.',
+                        source: Icons.Highlight
+                     });
                   }}
                />
                {Boolean(Token.getToken()) && <FormCTAButton

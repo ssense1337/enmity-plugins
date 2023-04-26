@@ -45,7 +45,7 @@ function patchSettings(Patcher: Patcher) {
     Patcher.after(Overview.type.prototype, 'render', ({ props: { navigation } }, __, res) => {
       const { children } = res.props;
 
-      const index = children.findIndex(x => Locale.Messages['LOGOUT'] === x.props.label);
+      const index = children.findIndex(x => Locale.Messages['LOGOUT'] === x?.props.label);
       children[index].props.label = 'Account Switcher';
       children[index].props.onPress = () => {
         navigation.navigate('AccountSwitcherMain');

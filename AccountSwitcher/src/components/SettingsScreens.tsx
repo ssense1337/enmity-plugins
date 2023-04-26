@@ -9,7 +9,7 @@ import MainSettings from './MainSettings';
 export const Settings = NavigationStack.createStackNavigator();
 
 const { createThemedStyleSheet } = StyleSheet;
-const { ThemeColorMap, Colors } = ColorMap;
+const { ThemeColorMap } = ColorMap;
 
 export function HeaderRight({ navigation = NavigationNative.useNavigation() }) {
   const styles = createThemedStyleSheet({
@@ -64,7 +64,7 @@ export function EditAccount({ settings, navigation = NavigationNative.useNavigat
     },
     colorText: {
       fontFamily: Constants.Fonts.PRIMARY_SEMIBOLD,
-      color: Colors.PRIMARY_DARK_400
+      color: Constants.Colors.PRIMARY_DARK_400
     },
     row: {
       flexDirection: "row",
@@ -161,7 +161,7 @@ export function AddAccount({ settings, navigation = NavigationNative.useNavigati
     },
     colorText: {
       fontFamily: Constants.Fonts.PRIMARY_SEMIBOLD,
-      color: Colors.PRIMARY_DARK_400
+      color: Constants.Colors.PRIMARY_DARK_400
     },
     row: {
       flexDirection: "row",
@@ -261,63 +261,61 @@ export default function ({ name = 'pluginName', mainScreen = MainScreen, addAcco
     }
   });
 
-  return <NavigationNative.NavigationContainer>
-    <Settings.Navigator
-      initialRouteName={name}
-      style={styles.container}
-      screenOptions={{
-        cardOverlayEnabled: !1,
-        cardShadowEnabled: !1,
-        cardStyle: styles.cardStyle,
-        headerStyle: styles.header,
-        headerTitleContainerStyle: styles.headerTitleContainer,
-        headerTitleAlign: 'center',
-        safeAreaInsets: {
-          top: 0,
+  return <Settings.Navigator
+    initialRouteName={name}
+    style={styles.container}
+    screenOptions={{
+      cardOverlayEnabled: !1,
+      cardShadowEnabled: !1,
+      cardStyle: styles.cardStyle,
+      headerStyle: styles.header,
+      headerTitleContainerStyle: styles.headerTitleContainer,
+      headerTitleAlign: 'center',
+      safeAreaInsets: {
+        top: 0,
+      },
+    }}
+  >
+    <Settings.Screen
+      name={name}
+      component={connectComponent(mainScreen, name)}
+      options={({ navigation }) => ({
+        headerTitle: 'Account Switcher',
+        headerTitleStyle: {
+          color: 'white',
         },
+        headerLeft: () => (<Button
+          color={styles.close.color}
+          title='Close'
+          onPress={(): void => Navigation.pop()}
+        />),
+        headerRight: () => (<HeaderRight
+          navigation={navigation}
+        />),
+        ...NavigationStack.TransitionPresets.ModalSlideFromBottomIOS
+      })}
+    />
+    <Settings.Screen
+      name={'AccountSwitcherAddAccount'}
+      component={connectComponent(addAccount, name)}
+      options={{
+        headerTitle: 'Add account',
+        headerTitleStyle: {
+          color: 'white',
+        },
+        headerTintColor: styles.close.color,
       }}
-    >
-      <Settings.Screen
-        name={name}
-        component={connectComponent(mainScreen, name)}
-        options={({ navigation }) => ({
-          headerTitle: 'Account Switcher',
-          headerTitleStyle: {
-            color: 'white',
-          },
-          headerLeft: () => (<Button
-            color={styles.close.color}
-            title='Close'
-            onPress={(): void => Navigation.pop()}
-          />),
-          headerRight: () => (<HeaderRight
-            navigation={navigation}
-          />),
-          ...NavigationStack.TransitionPresets.ModalSlideFromBottomIOS
-        })}
-      />
-      <Settings.Screen
-        name={'AccountSwitcherAddAccount'}
-        component={connectComponent(addAccount, name)}
-        options={{
-          headerTitle: 'Add account',
-          headerTitleStyle: {
-            color: 'white',
-          },
-          headerTintColor: styles.close.color,
-        }}
-      />
-      <Settings.Screen
-        name={'AccountSwitcherEditAccount'}
-        component={connectComponent(EditAccount, name)}
-        options={{
-          headerTitle: 'Edit account',
-          headerTitleStyle: {
-            color: 'white',
-          },
-          headerTintColor: styles.close.color,
-        }}
-      />
-    </Settings.Navigator>
-  </NavigationNative.NavigationContainer>;
+    />
+    <Settings.Screen
+      name={'AccountSwitcherEditAccount'}
+      component={connectComponent(EditAccount, name)}
+      options={{
+        headerTitle: 'Edit account',
+        headerTitleStyle: {
+          color: 'white',
+        },
+        headerTintColor: styles.close.color,
+      }}
+    />
+  </Settings.Navigator>
 }

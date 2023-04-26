@@ -46,20 +46,6 @@ interface dialogArgs {
   onCancel?: Function;
 };
 export const showConfirmDialog = ({ title = 'Are you sure?', body, confirmColor, confirmText = 'Yes', cancelText = 'No', onConfirm, onCancel }: dialogArgs) => {
-  if (!Token.getToken()) return Alert.alert(
-    title,
-    body,
-    [
-      {
-        text: confirmText,
-        onPress: onConfirm
-      },
-      {
-        text: cancelText,
-        onPress: onCancel
-      }
-    ]
-  );
   Dialog.show({
     isDismissable: true,
     title,
@@ -75,9 +61,10 @@ export const showConfirmDialog = ({ title = 'Are you sure?', body, confirmColor,
 export const Icons = {
   AddWhite: getIDByName('add_white'),
   Checkmark: getIDByName('Check'),
-  Key: getIDByName('ic_authed_apps_24px'),
+  Highlight: getIDByName('ic_highlight'),
+  Key: getIDByName('ic_full_server_gating_24px'),
   MyAccount: getIDByName('ic_my_account_24px'),
-  Passport: getIDByName('ic_passport_24px'),
+  Passport: getIDByName('img_nitro_server_avatar'),
   Settings: getIDByName('settings'),
   TrashFilled: getIDByName('ic_trash_filled_16px'),
   Sort: getIDByName('ic_sort')
